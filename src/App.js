@@ -1,12 +1,34 @@
-import React from "react";
+import { React, useState } from "react";
 import "./App.css";
 
-function City(props) {
-  return <div>This is the City component</div>;
+const City = (props) => {
+  return (
+    <div>
+      <h2>No results found</h2>
+    </div>
+  );
 }
 
-function ZipSearchField(props) {
-  return <div>This is the ZipSearchField component</div>;
+const ZipSearchField = (props) => {
+  const [zipcode, setZipCode] = useState("")
+
+  const userZip = (zip) => {
+    setZipCode(zip.target.value);
+  }
+
+  console.log(props.enteredzipcode)
+  return (
+    <div>
+      <div className="field-text">
+        <p>Zip Code:</p>
+      </div>
+      <div className="search-field">
+        <form>
+          <input value={zipcode} onChange={userZip} maxLength={5}></input>
+        </form>
+      </div>
+    </div>
+  );
 }
 
 function App() {
@@ -18,7 +40,6 @@ function App() {
       <div className="mx-auto" style={{ maxWidth: 400 }}>
         <ZipSearchField />
         <div>
-          <City />
           <City />
         </div>
       </div>
