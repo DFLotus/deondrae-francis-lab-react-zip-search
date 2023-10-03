@@ -7,9 +7,14 @@ const City = (props) => {
   //Fetch data
   useEffect(() => {
     const searchZip = async () => {
-      const response = await fetch(`https://ctp-zip-code-api.onrender.com/zip/${props.zip}`)
-      const data = await response.json();
-      console.log(data)
+      try{
+        const response = await fetch(`https://ctp-zip-code-api.onrender.com/zip/${props.zip}`)
+        const data = await response.json();
+        console.log(data)
+      }
+      catch (error){
+        console.log("Invaild Zip Code", error)
+      }
     }
     searchZip();
   }, [props.zip]);//the array specifcs that when the zip is changed, make a new request
