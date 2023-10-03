@@ -16,15 +16,14 @@ const ZipSearchField = (props) => {
     setZipCode(zip.target.value);
   }
 
-  console.log(props.enteredzipcode)
   return (
     <div>
       <div className="field-text">
         <p>Zip Code:</p>
       </div>
       <div className="search-field">
-        <form>
-          <input value={zipcode} onChange={userZip} maxLength={5}></input>
+        <form onSubmit={userZip}>
+          <input maxLength={5}></input>
         </form>
       </div>
     </div>
