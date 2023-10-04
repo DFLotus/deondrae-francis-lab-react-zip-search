@@ -10,13 +10,13 @@ const City = (props) => {
   //Fetch data
   useEffect(() => {
     const searchZip = async () => {
-      try{
+      try {
         const response = await fetch(`https://ctp-zip-code-api.onrender.com/zip/${props.zip}`)
         const data = await response.json();
         console.log(data)
         setData(data);//get the data and store it in a useState
       }
-      catch (error){
+      catch (error) {
         setData([]);//sets the data to empty 
         console.log("Invaild Zip Code", error)
       }
@@ -31,21 +31,23 @@ const City = (props) => {
           {
             zipdata.map((zip_object) => ( //the map function traverse through a iterable and applys a function over it; this case traverse
               <div className="zip-info">{/*through the array of objects and display the information we want at each index*/}
-                <div>
-                {zip_object.City}
+                <div className="city-container-block">
+                  {zip_object.City}, {zip_object.State}
                 </div>
-                <div>
-                State: {zip_object.State}
-                </div>
-                <div>
-                Location: {zip_object.Lat} {zip_object.Long}
-                </div>
-                <div>
-                Population (estimated): {zip_object.EstimatedPopulation}
-                </div>
-                <div>
-                Total Wages: {zip_object.TotalWages}
-                </div>
+                <ul>
+                  <li className="list-item">
+                    State: {zip_object.State}
+                  </li>
+                  <li className="list-item">
+                    Location: {zip_object.Lat} {zip_object.Long}
+                  </li>
+                  <li className="list-item">
+                    Population (estimated): {zip_object.EstimatedPopulation}
+                  </li>
+                  <li className="wage-container">
+                    Total Wages: {zip_object.TotalWages}
+                  </li>
+                  </ul>
               </div>
             ))
           }
