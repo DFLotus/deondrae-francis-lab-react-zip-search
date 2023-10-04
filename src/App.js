@@ -4,6 +4,9 @@ import "./App.css";
 //A static function with a static return type is a example of a pur enviroment
 
 const City = (props) => {
+  //Store data
+  const [zipdata, setData] = useState([]);
+
   //Fetch data
   useEffect(() => {
     const searchZip = async () => {
@@ -11,8 +14,10 @@ const City = (props) => {
         const response = await fetch(`https://ctp-zip-code-api.onrender.com/zip/${props.zip}`)
         const data = await response.json();
         console.log(data)
+        setData(data);//get the data and store it in a useState
       }
       catch (error){
+        setData([]);//sets the data to empty 
         console.log("Invaild Zip Code", error)
       }
     }
@@ -21,7 +26,35 @@ const City = (props) => {
 
   return (
     <div>
-      <h2>No results found</h2>
+      {zipdata.length > 0 ? (
+        <div className="vaild-zip-container">
+          {
+            zipdata.map((zip_object) => ( //the map function traverse through a iterable and applys a function over it; this case traverse
+              <div className="zip-info">{/*through the array of objects and display the information we want at each index*/}
+                <div>
+                {zip_object.City}
+                </div>
+                <div>
+                State: {zip_object.State}
+                </div>
+                <div>
+                Location: {zip_object.Lat} {zip_object.Long}
+                </div>
+                <div>
+                Population (estimated): {zip_object.EstimatedPopulation}
+                </div>
+                <div>
+                Total Wages: {zip_object.TotalWages}
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      ) : (
+        <div className="invaild-zip-container">
+          <h3>No results found</h3>
+        </div>
+      )}
     </div>
   );
 }
